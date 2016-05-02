@@ -17,6 +17,7 @@ CSRF_URL = "https://ccigoebwch.spotilocal.com:4370/simplecsrf/token.json?cors=&r
 STATUS_URL = "https://ccigoebwch.spotilocal.com:4370/remote/status.json?csrf={{csrf}}&oauth={{oauth}}&cors=&ref="
 PLAY_URI_URL = "https://ulbrihaxiq.spotilocal.com:4370/remote/play.json?csrf={{csrf}}&oauth={{oauth}}&context={{context}}&uri={{uri}}&cors=&ref="
 PAUSE_URL = "https://ulbrihaxiq.spotilocal.com:4370/remote/pause.json?csrf={{csrf}}&oauth={{oauth}}&pause={{pause}}&cors=&ref="
+OPEN_URL = "https://ccigoebwch.spotilocal.com:4370/remote/open.json?cors=&ref="
 
 class SpotifyLocalControl:
     def __init__(self):
@@ -36,6 +37,10 @@ class SpotifyLocalControl:
         self.oauth = json.loads(res.text)['t']
         res = r.get(CSRF_URL, headers=HEADERS, verify=False)
         self.csrf = json.loads(res.text)['token']
+
+    def open_spotify(self):
+        res = r.get(OPEN_URL, headers=HEADERS, verify=False)
+        sleep(5)
 
     def get_status(self):
         res = r.get(self.get_url(STATUS_URL), headers=HEADERS, verify=False)
